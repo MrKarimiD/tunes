@@ -18,9 +18,11 @@ TEMPLATE = app
 SOURCES += main.cpp \
     track.cpp \
     album.cpp \
-    person.cpp
+    person.cpp \
+    album_db.cpp
 
 HEADERS += \
     track.h \
     album.h \
-    person.h
+    person.h \
+    album_db.h

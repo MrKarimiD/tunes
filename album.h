@@ -2,17 +2,20 @@
 #define ALBUM_H
 
 #include "track.h"
+#include <vector>
 
 class Album
 {
 public:
     Album();
+    string albumDetails();
 
 private:
-    Track tracks[];
+    vector<Track> tracks;
     int numberOfAvailable;
     int id;
     string singerName;
+    string albumName;
     double price;
 };
 
