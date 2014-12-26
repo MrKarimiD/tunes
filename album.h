@@ -8,7 +8,13 @@ class Album
 {
 public:
     Album();
+    Album(int id,string albumName,string singerName,double price);
     string albumDetails();
+    void addNewTrack(int index,string name,double duration,double price);
+    string albumStatus();
+
+private:
+    string status();
 
 private:
     vector<Track> tracks;

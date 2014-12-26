@@ -5,6 +5,10 @@
 #include "album.h"
 #include "vector"
 #include "string"
+#include <iterator>
+#include <iostream>
+#include "QDebug"
+using namespace std;
 
 class album_db
 {
@@ -15,8 +19,8 @@ public:
     void addNewAlbum(int id,string album_name,string singer,double price);
     void addNewTrack(int album_id,int track_num,string name,double duration,double price);
     void increaseEntity(int album_code,int number);
-    void showAlbums();
-    void showAlbumDetails(int album_id);
+    string showAlbums();
+    string showAlbumDetails(int album_id);
 
 private:
     vector<Album> albums;

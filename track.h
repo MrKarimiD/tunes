@@ -9,6 +9,7 @@ class Track
 {
 public:
     Track();
+    Track(int album_code,int index,string name,double duration,double price);
     string trackDetails();
 
 private:

@@ -9,18 +9,40 @@ bool album_db::loadFromText(string file_name)
     ifstream textFile;
     textFile.open(file_name.data());
 
+    albums.clear();
+
     if (textFile.is_open())
     {
-        while (!textFile.eof())
+        string line;
+        while ( getline(textFile,line) )
         {
+            std::istringstream buf(line);
+            std::istream_iterator<string> beg(buf), end;
+            vector<string> tokens(beg, end);
+
+            if(line.at(0) == '\t')
+            {
+                Album last = albums.at(albums.size()-1);
+                string id = tokens.at(0) , duration = tokens.at(2) , price = tokens.at(3);
+                last.addNewTrack(atoi(id.c_str()),tokens.at(1),atof(duration.c_str()),atof(price.c_str()));
+                albums.pop_back();
+                albums.push_back(last);
+            }
+            else
+            {
+                string id = tokens.at(0) , price = tokens.at(3);
+                Album newOne(atoi(id.c_str()),tokens.at(1),tokens.at(2),atof(price.c_str()));
+                albums.push_back(newOne);
+            }
+
         }
+
+        textFile.close();
         return true;
     }
-    else
-    {
-        return false;
-    }
+
     textFile.close();
+    return false;
 }
 
 bool album_db::saveToText(string file_name)
@@ -62,12 +84,26 @@ void album_db::increaseEntity(int album_code, int number)
 
 }
 
-void album_db::showAlbums()
+string album_db::showAlbums()
 {
+    std::stringstream out;
+    for(int i=0;i<albums.size();i++)
+    {
+        Album temp = albums.at(i);
+        out<<temp.albumStatus();
+    }
 
+    return out.str();
 }
 
-void album_db::showAlbumDetails(int album_id)
+string album_db::showAlbumDetails(int album_id)
 {
+    std::stringstream out;
 
+    for(int i=0;i<albums.size();i++)
+    {
+        Album temp = albums.at(i);
+        out << temp.albumDetails();
+    }
+    return out.str();
 }
