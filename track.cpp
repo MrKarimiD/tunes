@@ -19,3 +19,13 @@ string Track::trackDetails()
     out << this->index<<" "<<this->name<<" "<<this->duration<<" "<<this->price;
     return out.str();
 }
+
+double Track::trackPrice()
+{
+    return this->price;
+}
+
+string Track::trackName()
+{
+    return this->name;
+}

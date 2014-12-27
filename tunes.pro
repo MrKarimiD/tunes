@@ -19,10 +19,14 @@ SOURCES += main.cpp \
     track.cpp \
     album.cpp \
     person.cpp \
-    album_db.cpp
+    album_db.cpp \
+    purchase.cpp \
+    purchase_list.cpp
 
 HEADERS += \
     track.h \
     album.h \
     person.h \
-    album_db.h
+    album_db.h \
+    purchase.h \
+    purchase_list.h

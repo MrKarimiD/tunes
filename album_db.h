@@ -21,7 +21,13 @@ public:
     void increaseEntity(int album_code,int number);
     string showAlbums();
     string showAlbumDetails(int album_id);
-
+    bool isAvailable(int album_id);
+    void buyAlbum(int album_id);
+    void buyTrack(int album_id,int track_id);
+    string findAlbumInfo(int album_id);
+    double findAlbumPrice(int album_id);
+    string findTrackInfo(int album_id,int track_id);
+    double findTrackPrice(int album_id,int track_id);
 private:
     int findAlbum(int album_id);
 

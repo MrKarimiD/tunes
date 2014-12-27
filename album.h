@@ -14,6 +14,12 @@ public:
     string albumStatus();
     int getAlbumID();
     void increase(int value);
+    bool isAvailable();
+    double buy();
+    string getAlbumName();
+    double getAlbumPrice();
+    string findTrackInfo(int track_id);
+    double findTrackPrice(int track_id);
 
 private:
     string status();

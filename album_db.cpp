@@ -116,6 +116,70 @@ string album_db::showAlbumDetails(int album_id)
     return out.str();
 }
 
+bool album_db::isAvailable(int album_id)
+{
+    int index = findAlbum(album_id);
+
+    Album temp = albums.at(index);
+
+    if( temp.isAvailable() )
+        return true;
+    return false;
+}
+
+void album_db::buyAlbum(int album_id)
+{
+    int index = findAlbum(album_id);
+
+    Album &temp = albums[index];
+
+    temp.buy();
+}
+
+void album_db::buyTrack(int album_id, int track_id)
+{
+    int index = findAlbum(album_id);
+}
+
+string album_db::findAlbumInfo(int album_id)
+{
+    string name;
+    double price;
+    for(int i=0;i<albums.size();i++)
+    {
+        Album temp = albums.at(i);
+        if( temp.getAlbumID() == album_id )
+        {
+            name = temp.getAlbumName();
+            price = temp.getAlbumPrice();
+            break;
+        }
+    }
+    std::ostringstream s;
+    s << "Album\t" << name << "\t" << price;
+    return s.str();
+}
+
+double album_db::findAlbumPrice(int album_id)
+{
+    for(int i=0;i<albums.size();i++)
+    {
+        Album temp = albums.at(i);
+        if( temp.getAlbumID() == album_id )
+            return temp.getAlbumPrice();
+    }
+}
+
+string album_db::findTrackInfo(int album_id, int track_id)
+{
+    int index = findAlbum(album_id);
+}
+
+double album_db::findTrackPrice(int album_id, int track_id)
+{
+
+}
+
 int album_db::findAlbum(int album_id)
 {
     for(int i=0;i<albums.size();i++)

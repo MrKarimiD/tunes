@@ -2,6 +2,7 @@
 #include <fstream>
 
 #include "album_db.h"
+#include "purchase_list.h"
 
 using namespace std;
 
@@ -10,6 +11,8 @@ int main(int argc, char *argv[])
     cout<<"Welcome To Tunes\n";
 
     album_db albums;
+    purchase_list purchase_history , purchase_tempList;
+
     bool loadCorrectly = albums.loadFromText("albums.txt");
     if(loadCorrectly)
         cout<<"Album's File Loaded Correctly.\n";
@@ -21,11 +24,13 @@ int main(int argc, char *argv[])
 
     string role = "customer";
 
-    if( strcmp(argv[1],"employee") == 0 )
+    if( argc == 2 &&strcmp(argv[1],"employee") == 0 )
     {
         cout<<"Role switched to ‫‪Employee\n‬‬";
         role = "‫‪employee‬‬";
     }
+
+    string purchase_status = "nothing";
 
     while(true)
     {
@@ -61,7 +66,7 @@ int main(int argc, char *argv[])
                 cout << "You don't Have This Permission!\n";
             }
         }
-        else if(tokens.at(0) == "‫‪increase_entity‬‬")
+        else if(tokens.at(0) == "increase_entity")
         {
             if( role == "‫‪employee‬‬")
             {
@@ -73,9 +78,10 @@ int main(int argc, char *argv[])
                 cout << "You don't Have This Permission!\n";
             }
         }
-        else if(tokens.at(0) == "‫‫‪start_purchase‬‬‬‬")
+        else if(tokens.at(0) == "start_purchase" )
         {
-            //Write It!
+            purchase_status = "start";
+            cout<<"Purchase Started\n";
         }
         else if(tokens.at(0) == "show_albums" )
         {
@@ -89,19 +95,65 @@ int main(int argc, char *argv[])
         }
         else if(tokens.at(0) == "purchase" )
         {
-            //Write It!
-        }
-        else if(tokens.at(0) == "start_purchase" )
-        {
-            //Write It!
+            if(purchase_status == "start")
+            {
+                string albumID_str = tokens.at(1);
+                if(tokens.size() == 2)
+                {
+                    cout<<"Added to List\n";
+                    purchase item(atoi(albumID_str.c_str()),0);
+                    purchase_tempList.addPurchaseItem(item);
+                }
+                else if(tokens.size() == 3)
+                {
+                    cout<<"Added to List\n";
+                    string trackID_str = tokens.at(2);
+                    purchase item(atoi(albumID_str.c_str()),atoi(trackID_str.c_str()));
+                    purchase_tempList.addPurchaseItem(item);
+                }
+                else
+                {
+                    cout<<"Wrong Pattern!\n";
+                }
+            }
         }
         else if(tokens.at(0) == "end_purchase" )
         {
-            //Write It!
+            if(purchase_status == "start")
+            {
+                std::ostringstream factor;
+                double cost =0;
+                for(int i=0;i<purchase_tempList.list.size();i++)
+                {
+                    purchase item = purchase_tempList.list.at(i);
+
+                    if(albums.isAvailable(item.get_album_id()))
+                    {
+                        if(item.get_track_id() == 0)
+                        {
+                            albums.buyAlbum(item.get_album_id());
+                            factor << albums.findAlbumInfo(item.get_album_id())<<"\n";
+                            cost = cost + albums.findAlbumPrice(item.get_album_id());
+                        }
+                        else
+                        {
+                            cout<<"track in list";
+                            albums.buyTrack(item.get_album_id(),item.get_track_id());
+                            factor << albums.findTrackInfo(item.get_album_id(),item.get_track_id())<<"\n";
+                            cost = cost + albums.findTrackPrice(item.get_album_id(),item.get_track_id());
+                        }
+                        purchase_history.list.push_back(item);
+                    }
+                }
+                factor <<"\nTotal Price : "<<cost;
+                cout << factor.str()<<"\n";
+                purchase_tempList.list.clear();
+                purchase_status = "nothing";
+            }
         }
         else if(tokens.at(0) == "show_all_purchases" )
         {
-            //Write It!
+            cout << purchase_history.show_list();
         }
         else if(tokens.at(0) == "quit" )
         {

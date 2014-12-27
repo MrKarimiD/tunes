@@ -51,6 +51,43 @@ void Album::increase(int value)
     this->numberOfAvailable = this->numberOfAvailable + value;
 }
 
+bool Album::isAvailable()
+{
+    if( this->numberOfAvailable > 0)
+        return true;
+    return false;
+}
+
+double Album::buy()
+{
+    this->numberOfAvailable--;
+    return this->price;
+}
+
+string Album::getAlbumName()
+{
+    return this->albumName;
+}
+
+double Album::getAlbumPrice()
+{
+    return this->price;
+}
+
+string Album::findTrackInfo(int track_id)
+{
+    std::ostringstream s;
+    Track tr = tracks.at(track_id);
+    s << "Track\n"<<tr.trackName()<<"\t"<<tr.trackPrice();
+    return s.str();
+}
+
+double Album::findTrackPrice(int track_id)
+{
+    Track tr = tracks.at(track_id);
+    return tr.trackPrice();
+}
+
 string Album::status()
 {
     string out;
