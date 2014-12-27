@@ -71,6 +71,8 @@ bool album_db::saveToText(string file_name)
 
 void album_db::addNewAlbum(int id, string album_name, string singer, double price)
 {
+    Album temp(id,album_name,singer,price);
+    albums.push_back(temp);
 
 }
 
