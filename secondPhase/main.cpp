@@ -1,8 +1,11 @@
-#include "iostream"
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include "album_db.h"
 #include "purchase_list.h"
+#include "person_db.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -11,10 +14,11 @@ int main(int argc, char *argv[])
     cout<<"Welcome To Tunes - First Phase\n";
 
     album_db albums;
+    person_db persons;
     purchase_list purchase_history , purchase_tempList;
 
-    bool loadCorrectly = albums.loadFromText("albums.txt");
-    if(loadCorrectly)
+    bool loadAlbumsCorrectly = albums.loadFromText("albums.txt");
+    if(loadAlbumsCorrectly)
         cout<<"Album's File Loaded Correctly.\n";
     else
     {
@@ -22,7 +26,16 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    string role = "customer";
+    bool loadStaffCorrectly = persons.loadStaffsFromText("staff.txt");
+    if(loadStaffCorrectly)
+        cout<<"Staff's File Loaded Correctly.\n";
+    else
+    {
+        cout<<"Error : Staff's File didn't load corectly!";
+        return 0;
+    }
+
+    string role = "unknown";
 
     string purchase_status = "nothing";
 

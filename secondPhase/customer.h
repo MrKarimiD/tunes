@@ -7,6 +7,7 @@ class Customer : public Person
 {
 public:
     Customer();
+    Customer(string name,string family_name,string password,string email);
 
 private:
     string email;

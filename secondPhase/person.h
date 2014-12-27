@@ -8,6 +8,9 @@ class Person
 {
 public:
     Person();
+    Person(string name,string family_name,string password,string role);
+    string get_uname();
+    string get_password();
 
 protected:
     string name;
