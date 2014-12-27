@@ -151,7 +151,21 @@ int main(int argc, char *argv[])
         }
         else if(tokens.at(0) == "show_all_purchases" )
         {
-            cout << purchase_history.show_list();
+            std::ostringstream history;
+            for(int i=0;i<purchase_history.list.size();i++)
+            {
+                purchase item = purchase_history.list.at(i);
+
+                if(item.get_track_id() == 0)
+                {
+                    history << albums.findAlbumInfo(item.get_album_id())<<"\n";
+                }
+                else
+                {
+                    history << albums.findTrackInfo(item.get_album_id(),item.get_track_id())<<"\n";
+                }
+            }
+            cout << history.str();
         }
         else if(tokens.at(0) == "quit" )
         {
