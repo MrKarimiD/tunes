@@ -169,7 +169,14 @@ int main(int argc, char *argv[])
         }
         else if(tokens.at(0) == "quit" )
         {
-            //Save & Quit
+            bool saveCorrectly = albums.saveToText("albums.txt");
+            if( saveCorrectly )
+                cout << "Data saved correctly.\n";
+
+            else
+                cout << "There is a problem for saving data.\n";
+
+            return 0;
         }
         else
             cout<<"Unknown Command!\n";
