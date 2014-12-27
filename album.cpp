@@ -77,14 +77,16 @@ double Album::getAlbumPrice()
 string Album::findTrackInfo(int track_id)
 {
     std::ostringstream s;
-    Track tr = tracks.at(track_id);
-    s << "Track\n"<<tr.trackName()<<"\t"<<tr.trackPrice();
+    int index = findTrack(track_id);
+    Track tr = tracks.at(index);
+    s << "Track\t"<<tr.trackName()<<"\t"<<tr.trackPrice();
     return s.str();
 }
 
 double Album::findTrackPrice(int track_id)
 {
-    Track tr = tracks.at(track_id);
+    int index = findTrack(track_id);
+    Track tr = tracks.at(index);
     return tr.trackPrice();
 }
 
@@ -98,4 +100,14 @@ string Album::status()
         out = "Sold Out";
 
     return out;
+}
+
+int Album::findTrack(int track_id)
+{
+    for(int i=0;i<tracks.size();i++)
+    {
+        Track temp = tracks.at(i);
+        if( temp.get_track_id()  == track_id )
+            return i;
+    }
 }

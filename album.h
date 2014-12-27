@@ -23,6 +23,7 @@ public:
 
 private:
     string status();
+    int findTrack(int track_id);
 
 private:
     vector<Track> tracks;

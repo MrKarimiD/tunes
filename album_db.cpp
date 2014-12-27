@@ -173,11 +173,15 @@ double album_db::findAlbumPrice(int album_id)
 string album_db::findTrackInfo(int album_id, int track_id)
 {
     int index = findAlbum(album_id);
+    Album temp = albums.at(index);
+    return temp.findTrackInfo(track_id);
 }
 
 double album_db::findTrackPrice(int album_id, int track_id)
 {
-
+    int index = findAlbum(album_id);
+    Album temp = albums.at(index);
+    return temp.findTrackPrice(track_id);
 }
 
 int album_db::findAlbum(int album_id)

@@ -23,6 +23,10 @@ void purchase_list::addPurchaseItem(purchase newItem)
     {
         list.push_back(newItem);
     }
+    else
+    {
+        cout << "Already in your list!";
+    }
 }
 
 bool purchase_list::isInList(purchase item)

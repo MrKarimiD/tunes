@@ -29,3 +29,8 @@ string Track::trackName()
 {
     return this->name;
 }
+
+int Track::get_track_id()
+{
+    return this->index;
+}

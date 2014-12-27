@@ -13,6 +13,7 @@ public:
     string trackDetails();
     double trackPrice();
     string trackName();
+    int get_track_id();
 
 private:
    int index;

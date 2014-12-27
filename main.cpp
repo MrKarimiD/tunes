@@ -1,6 +1,6 @@
 #include "iostream"
 #include <fstream>
-
+#include <sstream>
 #include "album_db.h"
 #include "purchase_list.h"
 
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     string role = "customer";
 
-    if( argc == 2 &&strcmp(argv[1],"employee") == 0 )
+    if( argc == 2 && strcmp(argv[1],"employee") == 0 )
     {
         cout<<"Role switched to ‫‪Employee\n‬‬";
         role = "‫‪employee‬‬";
@@ -87,7 +87,6 @@ int main(int argc, char *argv[])
         {
             cout<<albums.showAlbums()<<"\n";
         }
-
         else if(tokens.at(0) == "show_album" )
         {
             string albumID_str = tokens.at(1);
@@ -137,7 +136,6 @@ int main(int argc, char *argv[])
                         }
                         else
                         {
-                            cout<<"track in list";
                             albums.buyTrack(item.get_album_id(),item.get_track_id());
                             factor << albums.findTrackInfo(item.get_album_id(),item.get_track_id())<<"\n";
                             cost = cost + albums.findTrackPrice(item.get_album_id(),item.get_track_id());
