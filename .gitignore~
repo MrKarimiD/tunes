@@ -52,3 +52,5 @@ Makefile*
 *.qmlproject.user.*
 
 #Text Files Used For DB
+albums.txt
+staff.txt
