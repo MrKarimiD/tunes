@@ -53,7 +53,8 @@ int main(int argc, char *argv[])
         {
             if( role == "‫‪employee‬‬")
             {
-                //Write It!
+                string albumCode_str = tokens.at(1) ,trackID_str = tokens.at(2) , dur_str = tokens.at(4) , price_str = tokens.at(5);
+                albums.addNewTrack(atoi(albumCode_str.c_str()),atoi(trackID_str.c_str()),tokens.at(3),atof(dur_str.c_str()),atof(price_str.c_str()));
             }
             else
             {
@@ -64,7 +65,8 @@ int main(int argc, char *argv[])
         {
             if( role == "‫‪employee‬‬")
             {
-                //Write It!
+                string albumID_str = tokens.at(0) , num_str = tokens.at(1) ;
+                albums.increaseEntity(atoi(albumID_str.c_str()),atoi(num_str.c_str()));
             }
             else
             {
@@ -81,6 +83,27 @@ int main(int argc, char *argv[])
         }
 
         else if(tokens.at(0) == "show_album" )
+        {
+            string albumID_str = tokens.at(1);
+            cout<<albums.showAlbumDetails(atoi(albumID_str.c_str()));
+        }
+        else if(tokens.at(0) == "quit" )
+        {
+            //Save & Quit
+        }
+        else if(tokens.at(0) == "purchase" )
+        {
+            //Write It!
+        }
+        else if(tokens.at(0) == "start_purchase" )
+        {
+            //Write It!
+        }
+        else if(tokens.at(0) == "end_purchase" )
+        {
+            //Write It!
+        }
+        else if(tokens.at(0) == "show_all_purchases" )
         {
             //Write It!
         }

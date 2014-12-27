@@ -12,6 +12,8 @@ public:
     string albumDetails();
     void addNewTrack(int index,string name,double duration,double price);
     string albumStatus();
+    int getAlbumID();
+    void increase(int value);
 
 private:
     string status();

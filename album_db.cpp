@@ -78,12 +78,18 @@ void album_db::addNewAlbum(int id, string album_name, string singer, double pric
 
 void album_db::addNewTrack(int album_id, int track_num, string name, double duration, double price)
 {
+    int index = findAlbum(album_id);
 
+    Album &temp = albums[index];
+    temp.addNewTrack(track_num,name,duration,price);
 }
 
 void album_db::increaseEntity(int album_code, int number)
 {
+    int index = findAlbum(album_code);
 
+    Album &temp = albums[index];
+    temp.increase(number);
 }
 
 string album_db::showAlbums()
@@ -102,10 +108,20 @@ string album_db::showAlbumDetails(int album_id)
 {
     std::stringstream out;
 
+    int index = findAlbum(album_id);
+
+    Album temp = albums.at(index);
+    out << temp.albumDetails();
+
+    return out.str();
+}
+
+int album_db::findAlbum(int album_id)
+{
     for(int i=0;i<albums.size();i++)
     {
         Album temp = albums.at(i);
-        out << temp.albumDetails();
+        if( temp.getAlbumID() == album_id )
+            return i;
     }
-    return out.str();
 }

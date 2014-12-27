@@ -41,6 +41,16 @@ string Album::albumStatus()
     return out.str();
 }
 
+int Album::getAlbumID()
+{
+    return this->id;
+}
+
+void Album::increase(int value)
+{
+    this->numberOfAvailable = this->numberOfAvailable + value;
+}
+
 string Album::status()
 {
     string out;

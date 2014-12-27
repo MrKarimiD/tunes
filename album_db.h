@@ -23,6 +23,9 @@ public:
     string showAlbumDetails(int album_id);
 
 private:
+    int findAlbum(int album_id);
+
+private:
     vector<Album> albums;
 };
 
