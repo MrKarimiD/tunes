@@ -19,8 +19,13 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    //cout << albums.showAlbums();
     string role = "customer";
+
+    if( strcmp(argv[1],"employee") == 0 )
+    {
+        cout<<"Role switched to ‫‪Employee\n‬‬";
+        role = "‫‪employee‬‬";
+    }
 
     while(true)
     {
@@ -32,12 +37,7 @@ int main(int argc, char *argv[])
         std::istream_iterator<string> beg(buf), end;
         vector<string> tokens(beg, end);
 
-        if( tokens.at(0) == "employee")
-        {
-            cout<<"Role switched to ‫‪Employee\n‬‬";
-            role = "‫‪employee‬‬";
-        }
-        else if(tokens.at(0) == "add_album")
+        if(tokens.at(0) == "add_album")
         {
             if( role == "‫‪employee‬‬")
             {
@@ -87,10 +87,6 @@ int main(int argc, char *argv[])
             string albumID_str = tokens.at(1);
             cout<<albums.showAlbumDetails(atoi(albumID_str.c_str()));
         }
-        else if(tokens.at(0) == "quit" )
-        {
-            //Save & Quit
-        }
         else if(tokens.at(0) == "purchase" )
         {
             //Write It!
@@ -106,6 +102,10 @@ int main(int argc, char *argv[])
         else if(tokens.at(0) == "show_all_purchases" )
         {
             //Write It!
+        }
+        else if(tokens.at(0) == "quit" )
+        {
+            //Save & Quit
         }
         else
             cout<<"Unknown Command!\n";
