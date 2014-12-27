@@ -20,7 +20,13 @@ bool person_db::loadStaffsFromText(string inputName)
             std::istream_iterator<string> beg(buf), end;
             vector<string> tokens(beg, end);
 
-            Staff temp(tokens.at(0),tokens.at(1),tokens.at(2),tokens.at(3));
+            string password = tokens.at(3);
+            for(int i=4;i<tokens.size();i++)
+            {
+                password.append(" ");
+                password.append(tokens.at(i));
+            }
+            Staff temp(tokens.at(0),tokens.at(1),password,tokens.at(2));
             staffs.push_back(temp);
         }
 

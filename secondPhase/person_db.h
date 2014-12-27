@@ -23,6 +23,7 @@ public:
     void addToPerson(string name,string family_name,string email,string password);
     string login(string uname,string password);
     bool reg_fun(string name,string family_name,string email,string password);
+
 private:
    vector<Staff> staffs;
    vector<Customer> customers;
