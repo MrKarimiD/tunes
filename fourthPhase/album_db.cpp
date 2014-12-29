@@ -207,6 +207,17 @@ string album_db::exportFactor(purchase_list purchaseList)
                 cost = cost + findTrackPrice(item.get_album_id(),item.get_track_id());
             }
         }
+        else
+        {
+            if(item.get_track_id() == 0)
+            {
+                factor << findAlbumInfo(item.get_album_id())<<"\tPending\n";
+            }
+            else
+            {
+                factor << findTrackInfo(item.get_album_id(),item.get_track_id())<<"\tPending\n";
+            }
+        }
     }
     factor <<"\nTotal Price : "<<cost << "\n";
     return factor.str();
@@ -241,10 +252,29 @@ string album_db::buyAndExportFactor(purchase_list &purchaseList, purchase_list &
             history.list.push_back(item);
         }
         else
+        {
+            purchase *tmp = &purchaseList.list.at(i);
+            tmp->set_status("pending");
             i++;
+        }
     }
     factor <<"\nTotal Price : "<<cost << "\n";
     return factor.str();
+}
+
+string album_db::finAlbumName(int id)
+{
+    string name;
+    for(int i=0;i<albums.size();i++)
+    {
+        Album temp = albums.at(i);
+        if( temp.getAlbumID() == id )
+        {
+            name = temp.getAlbumName();
+            break;
+        }
+    }
+    return name;
 }
 
 int album_db::findAlbum(int album_id)

@@ -13,10 +13,13 @@ public:
     string show();
     int get_album_id();
     int get_track_id();
+    void set_status(string status);
+    string get_status();
 
 private:
     int album_id;
     int track_id;
+    string status;
 };
 
 #endif // PURCHASE_H

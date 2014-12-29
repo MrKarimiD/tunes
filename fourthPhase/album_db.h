@@ -33,6 +33,7 @@ public:
     double findTrackPrice(int album_id,int track_id);
     string exportFactor(purchase_list purchaseList);
     string buyAndExportFactor(purchase_list &purchaseList, purchase_list &history);
+    string finAlbumName(int id);
 private:
     int findAlbum(int album_id);
 

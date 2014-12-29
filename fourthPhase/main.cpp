@@ -114,8 +114,11 @@ int main(int argc, char *argv[])
         {
             if( role == "staff")
             {
-                string albumID_str = tokens.at(0) , num_str = tokens.at(1) ;
-                albums.increaseEntity(atoi(albumID_str.c_str()),atoi(num_str.c_str()));
+                string albumID_str = tokens.at(1) , num_str = tokens.at(2) ;
+                int albumID = atoi(albumID_str.c_str());
+                int number = atoi(num_str.c_str());
+                albums.increaseEntity(albumID,number);
+                persons.notifyEveryOne(albumID,albums.finAlbumName(albumID));
             }
             else
             {
@@ -355,6 +358,7 @@ int main(int argc, char *argv[])
                     password.append(tokens.at(i));
                 }
                 role = persons.login(tokens.at(1),password,login_person_name,login_person_id);
+                cout << persons.show_new_notification(login_person_id);
             }
             else
             {
@@ -440,6 +444,10 @@ int main(int argc, char *argv[])
                     }
                 }
             }
+        }
+        else if(tokens.at(0) == "show_notifications")
+        {
+            cout << persons.show_notification(login_person_id);
         }
         else
             cout<<"Unknown Command!\n";

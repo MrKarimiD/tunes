@@ -2,7 +2,7 @@
 
 person_db::person_db()
 {
-     anonymous = new Customer("anonymous","","","");
+    anonymous = new Customer("anonymous","","","");
 }
 
 bool person_db::loadStaffsFromText(string inputName)
@@ -300,4 +300,44 @@ void person_db::setHistory(int person_id, purchase_list input)
 
     temp->purchase_history.list.clear();
     temp->purchase_history = input;
+}
+
+void person_db::notifyEveryOne(int album_id, string album_name)
+{
+    for(int i=0;i<customers.size();i++)
+    {
+        Customer *tmp = &customers.at(i);
+        purchase_list *user_list = &tmp->purchase_basket;
+        for(int j=0;j<user_list->list.size();j++)
+        {
+            purchase *input_purchase = &user_list->list.at(j);
+            if( (input_purchase->get_album_id() == album_id) && (input_purchase->get_status() == "pending") )
+            {
+                input_purchase->set_status("ok");
+                std::ostringstream output;
+                output << "Album " << album_name <<" added - now you can buy it.";
+                tmp->addNewNotif(output.str());
+            }
+        }
+    }
+}
+
+string person_db::show_notification(int person_id)
+{
+    if(person_id != -1)
+    {
+        Customer *tmp = &customers.at(person_id);
+        return tmp->showNotifications();
+    }
+    return "";
+}
+
+string person_db::show_new_notification(int person_id)
+{
+    if(person_id != -1)
+    {
+        Customer *tmp = &customers.at(person_id);
+        return tmp->showNewNotifications();
+    }
+    return "";
 }

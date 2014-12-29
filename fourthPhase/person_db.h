@@ -37,6 +37,10 @@ public:
     purchase_list getHistory(int person_id);
     void setBasket(int person_id,purchase_list input);
     void setHistory(int person_id,purchase_list input);
+    void notifyEveryOne(int album_id,string album_name);
+    string show_notification(int person_id);
+    string show_new_notification(int person_id);
+
     Customer *anonymous;
 
 private:
