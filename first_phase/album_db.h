@@ -7,7 +7,7 @@
 #include "string"
 #include <iterator>
 #include <iostream>
-#include "QDebug"
+
 using namespace std;
 
 class album_db
