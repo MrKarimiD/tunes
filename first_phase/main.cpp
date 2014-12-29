@@ -1,8 +1,11 @@
-#include "iostream"
-#include <fstream>
-#include <sstream>
 #include "album_db.h"
 #include "purchase_list.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <cstring>
 
 using namespace std;
 
