@@ -20,6 +20,8 @@ class person_db
 public:
     person_db();
     bool loadStaffsFromText(string inputName);
+    bool loadCustomersFromText(string inputName);
+    bool saveCustomersToText(string inputName);
     void addToPerson(string name,string family_name,string email,string password);
     string login(string uname,string password,string &name,int &id);
     bool reg_fun(string name, string family_name, string email, string password, string &log_name, int &id);

@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
         cout<<"Album's File Loaded Correctly.\n";
     else
     {
-        cout<<"Error : Album's File didn't load corectly!";
+        cout<<"Error : Album's File didn't load corectly!\n";
         return 0;
     }
 
@@ -69,7 +69,16 @@ int main(int argc, char *argv[])
         cout<<"Staff's File Loaded Correctly.\n";
     else
     {
-        cout<<"Error : Staff's File didn't load corectly!";
+        cout<<"Error : Staff's File didn't load corectly!\n";
+        return 0;
+    }
+
+    bool loadCustomerCorrectly = persons.loadCustomersFromText("customers.txt");
+    if(loadCustomerCorrectly)
+        cout<<"Customer's File Loaded Correctly.\n";
+    else
+    {
+        cout<<"Error : Customer's File didn't load corectly!\n";
         return 0;
     }
 
@@ -311,8 +320,15 @@ int main(int argc, char *argv[])
         }
         else if(tokens.at(0) == "quit" )
         {
-            bool saveCorrectly = albums.saveToText("albums.txt");
-            if( saveCorrectly )
+            bool saveAlbumsCorrectly = albums.saveToText("albums.txt");
+            if( saveAlbumsCorrectly )
+                cout << "Data saved correctly.\n";
+
+            else
+                cout << "There is a problem for saving data.\n";
+
+            bool saveCustomersCorrectly = persons.saveCustomersToText("customers.txt");
+            if( saveCustomersCorrectly )
                 cout << "Data saved correctly.\n";
 
             else

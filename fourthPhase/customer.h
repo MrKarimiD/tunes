@@ -13,12 +13,13 @@ public:
     string showNewNotifications();
     purchase_list purchase_history , purchase_basket;
     void addNewNotif(string input);
+    void addNotif(string input);
+    string customerInfo();
 
 private:
     string email;
-    string notifications;
-    string new_notifications;
-    int numberOfNewNotifications;
+    vector<string> notifications;
+    vector<string> new_notifications;
 };
 
 #endif // CUSTOMER_H

@@ -42,6 +42,97 @@ bool person_db::loadStaffsFromText(string inputName)
     return false;
 }
 
+bool person_db::loadCustomersFromText(string inputName)
+{
+    ifstream textFile;
+    textFile.open(inputName.data());
+
+    customers.clear();
+
+    if (textFile.is_open())
+    {
+        string line;
+        while ( getline(textFile,line) )
+        {
+            std::istringstream buf(line);
+            std::istream_iterator<string> beg(buf), end;
+            vector<string> tokens(beg, end);
+
+            if(line.at(0) == '+')
+            {
+                Customer last = customers.at(customers.size()-1);
+                string album_id = tokens.at(1) , track_id = tokens.at(2);
+                purchase purc(atoi(album_id.c_str()),atoi(track_id.c_str()));
+                purc.set_status(tokens.at(3));
+                last.purchase_basket.list.push_back(purc);
+                customers.pop_back();
+                customers.push_back(last);
+            }
+            if(line.at(0) == '-')
+            {
+                Customer last = customers.at(customers.size()-1);
+                string album_id = tokens.at(1) , track_id = tokens.at(2);
+                purchase purc(atoi(album_id.c_str()),atoi(track_id.c_str()));
+                last.purchase_history.list.push_back(purc);
+                customers.pop_back();
+                customers.push_back(last);
+            }
+            if(line.at(0) == '*')
+            {
+                Customer last = customers.at(customers.size()-1);
+                string notif = tokens.at(1);
+                last.addNotif(notif);
+                customers.pop_back();
+                customers.push_back(last);
+            }
+            if(line.at(0) == '$')
+            {
+                Customer last = customers.at(customers.size()-1);
+                string notif = tokens.at(1);
+                last.addNewNotif(notif);
+                customers.pop_back();
+                customers.push_back(last);
+            }
+            else
+            {
+                Customer newOne(tokens.at(0),tokens.at(1),tokens.at(3),tokens.at(2));
+                customers.push_back(newOne);
+            }
+
+        }
+
+        textFile.close();
+        return true;
+    }
+
+    textFile.close();
+    return false;
+}
+
+bool person_db::saveCustomersToText(string inputName)
+{
+    ofstream textFile;
+    textFile.open(inputName.data());
+
+    if (textFile.is_open())
+    {
+        std::stringstream out;
+
+        for(int i=0;i<customers.size();i++)
+        {
+            Customer temp = customers.at(i);
+            out << temp.customerInfo();
+        }
+        textFile<<out.str();
+    }
+    else
+    {
+        return false;
+    }
+
+    textFile.close();
+}
+
 void person_db::addToPerson(string name, string family_name, string email, string password)
 {
     Customer temp(name,family_name,password,email);
