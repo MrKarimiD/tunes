@@ -298,5 +298,6 @@ void person_db::setHistory(int person_id, purchase_list input)
         temp = anonymous;
     }
 
+    temp->purchase_history.list.clear();
     temp->purchase_history = input;
 }

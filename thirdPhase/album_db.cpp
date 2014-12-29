@@ -208,7 +208,7 @@ string album_db::exportFactor(purchase_list purchaseList)
             }
         }
     }
-    factor <<"\nTotal Price : "<<cost;
+    factor <<"\nTotal Price : "<<cost << "\n";
     return factor.str();
 }
 
@@ -243,7 +243,7 @@ string album_db::buyAndExportFactor(purchase_list &purchaseList, purchase_list &
         else
             i++;
     }
-    factor <<"\nTotal Price : "<<cost;
+    factor <<"\nTotal Price : "<<cost << "\n";
     return factor.str();
 }
 

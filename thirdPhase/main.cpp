@@ -187,7 +187,7 @@ int main(int argc, char *argv[])
                     }
                 }
                 else
-                    cout<< "Error! : First start the purchase!";
+                    cout<< "Error! : First start the purchase!\n";
             }
         }
         else if(tokens.at(0) == "end_purchase" )
@@ -202,32 +202,78 @@ int main(int argc, char *argv[])
                 {
                     std::ostringstream output;
                     purchase_list basket = persons.getBasket(login_person_id);
-                    purchase_list history = persons.getBasket(login_person_id);
+                    purchase_list history = persons.getHistory(login_person_id);
                     output << "User : "<<login_person_name << "\n";
                     if( login_person_id != -1)
                     {
                         output << albums.buyAndExportFactor(basket,history) << "\n";
                         persons.setBasket(login_person_id,basket);
-                        persons.setHistory(login_person_id,basket);
+                        persons.setHistory(login_person_id,history);
                         cout << output.str();
                     }
                     else
                     {
-                        output << albums.exportFactor(persons.getBasket(login_person_id)) << "\n";
-                        cout << output.str();
                         cout << "You should login to continue!\n";
-                        cout << "Do you want to login ?(Y/n)\n";
-
-                        char ans;
-                        cin>>ans;
-                        if(ans == 'Y')
+                        cout << "Do you want to register (y/n) ? \n";
+                        string ans;
+                        getline(cin,ans);
+                        if(ans == "y")
                         {
-                            //Do login
-                            cout<<"Login fucker";
+                            purchase_list past = persons.getBasket(login_person_id);
+                            cout << "enter in this format :\n";
+                            cout << "register name family email password\n";
+                            ans.clear();
+                            getline(cin,ans);
+
+                            std::istringstream buf2(ans);
+                            std::istream_iterator<string> beg2(buf2), end2;
+                            vector<string> tokens2(beg2, end2);
+                            string password;
+                            password.append(tokens2.at(4));
+                            for(int i=5;i<tokens2.size();i++)
+                            {
+                                password.append(" ");
+                                password.append(tokens2.at(i));
+                            }
+                            string email = tokens2.at(3);
+                            if( isValidEmailAddress(email.c_str()))
+                            {
+                                bool registerCheck = persons.reg_fun(tokens2.at(1),tokens2.at(2),tokens2.at(3),password
+                                                                     ,login_person_name,login_person_id);
+                                if(registerCheck)
+                                {
+                                    cout << "User added successfully\n";
+                                    role = "customer";
+                                }
+                                else
+                                    cout << "User can't added to System\n";
+                            }
+                            else
+                            {
+                                cout << "Email foramt isn't corrected\n";
+                            }
+
+                            std::ostringstream output;
+                            persons.setBasket(login_person_id,past);
+                            purchase_list basket = persons.getBasket(login_person_id);
+                            purchase_list history = persons.getHistory(login_person_id);
+                            output << "User : "<<login_person_name << "\n";
+                            if( login_person_id != -1)
+                            {
+                                output << albums.buyAndExportFactor(basket,history) << "\n";
+                                persons.setBasket(login_person_id,basket);
+                                persons.setHistory(login_person_id,history);
+                                cout << output.str();
+                            }
+                        }
+                        else if(ans == "n")
+                        {
+                            output << albums.exportFactor(persons.getBasket(login_person_id)) << "\n";
+                            cout << output.str();
                         }
                     }
                     purchase_status = "nothing";
-                 }
+                }
             }
         }
         else if(tokens.at(0) == "show_all_purchases" )
@@ -348,9 +394,9 @@ int main(int argc, char *argv[])
                             sumOfEach += albums.findTrackPrice(item.get_album_id(),item.get_track_id());
                         }
                     }
-                    history << "Cost :" << sumOfEach;
+                    history << "Cost :" << sumOfEach << "\n";
                     sumOfAll += sumOfEach;
-                    history <<"-----------\n";
+                    history <<"----------------------\n";
                 }
                 history << "Total Cost : "<<sumOfAll <<"\n";
                 cout << history.str();
