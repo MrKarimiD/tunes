@@ -358,7 +358,8 @@ int main(int argc, char *argv[])
                     password.append(tokens.at(i));
                 }
                 role = persons.login(tokens.at(1),password,login_person_name,login_person_id);
-                cout << persons.show_new_notification(login_person_id);
+                if ( role == "customer" )
+                    cout << persons.show_new_notification(login_person_id);
             }
             else
             {
