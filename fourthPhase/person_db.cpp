@@ -58,40 +58,32 @@ bool person_db::loadCustomersFromText(string inputName)
             std::istream_iterator<string> beg(buf), end;
             vector<string> tokens(beg, end);
 
-            if(line.at(0) == '+')
+            if(tokens.at(0) == "+")
             {
-                Customer last = customers.at(customers.size()-1);
+                Customer *last = &customers.at(customers.size()-1);
                 string album_id = tokens.at(1) , track_id = tokens.at(2);
                 purchase purc(atoi(album_id.c_str()),atoi(track_id.c_str()));
                 purc.set_status(tokens.at(3));
-                last.purchase_basket.list.push_back(purc);
-                customers.pop_back();
-                customers.push_back(last);
+                last->purchase_basket.addPurchaseItem(purc);
             }
-            if(line.at(0) == '-')
+            else if(tokens.at(0) == "-")
             {
-                Customer last = customers.at(customers.size()-1);
+                Customer *last = &customers.at(customers.size()-1);
                 string album_id = tokens.at(1) , track_id = tokens.at(2);
                 purchase purc(atoi(album_id.c_str()),atoi(track_id.c_str()));
-                last.purchase_history.list.push_back(purc);
-                customers.pop_back();
-                customers.push_back(last);
+                last->purchase_history.addPurchaseItem(purc);
             }
-            if(line.at(0) == '*')
+            else if(tokens.at(0) == "*")
             {
-                Customer last = customers.at(customers.size()-1);
+                Customer *last = &customers.at(customers.size()-1);
                 string notif = tokens.at(1);
-                last.addNotif(notif);
-                customers.pop_back();
-                customers.push_back(last);
+                last->addNotif(notif);
             }
-            if(line.at(0) == '$')
+            else if(tokens.at(0) == "$")
             {
-                Customer last = customers.at(customers.size()-1);
+                Customer *last = &customers.at(customers.size()-1);
                 string notif = tokens.at(1);
-                last.addNewNotif(notif);
-                customers.pop_back();
-                customers.push_back(last);
+                last->addNewNotif(notif);
             }
             else
             {
