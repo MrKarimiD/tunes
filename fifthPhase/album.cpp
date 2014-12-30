@@ -13,11 +13,20 @@ Album::Album(int id, string albumName, string singerName, double price)
     this->numberOfAvailable = 10;
 }
 
+Album::Album(int id, string albumName, string singerName, double price, int number)
+{
+    this->id = id;
+    this->albumName = albumName;
+    this->singerName = singerName;
+    this->price = price;
+    this->numberOfAvailable = number;
+}
+
 string Album::albumDetails()
 {
     std::stringstream out;
 
-    out<<this->id<<" "<<this->albumName<<" "<<this->singerName<<" "<<this->price<<"\n";
+    out<<this->id<<" "<<this->albumName<<" "<<this->singerName<<" "<<this->price<< " " << this->number() <<"\n";
 
     for(int i=0;i<tracks.size();i++)
     {
@@ -88,6 +97,11 @@ double Album::findTrackPrice(int track_id)
     int index = findTrack(track_id);
     Track tr = tracks.at(index);
     return tr.trackPrice();
+}
+
+int Album::number()
+{
+    return this->numberOfAvailable;
 }
 
 string Album::status()

@@ -30,9 +30,18 @@ bool album_db::loadFromText(string file_name)
             }
             else
             {
-                string id = tokens.at(0) , price = tokens.at(3);
-                Album newOne(atoi(id.c_str()),tokens.at(1),tokens.at(2),atof(price.c_str()));
-                albums.push_back(newOne);
+                if(tokens.size() == 4)
+                {
+                    string id = tokens.at(0) , price = tokens.at(3);
+                    Album newOne(atoi(id.c_str()),tokens.at(1),tokens.at(2),atof(price.c_str()));
+                    albums.push_back(newOne);
+                }
+                else if(tokens.size() == 5)
+                {
+                    string id = tokens.at(0) , price = tokens.at(3) , num = tokens.at(4);
+                    Album newOne(atoi(id.c_str()),tokens.at(1),tokens.at(2),atof(price.c_str()),atof(num.c_str()));
+                    albums.push_back(newOne);
+                }
             }
 
         }

@@ -9,6 +9,7 @@ class Album
 public:
     Album();
     Album(int id,string albumName,string singerName,double price);
+    Album(int id,string albumName,string singerName,double price,int number);
     string albumDetails();
     void addNewTrack(int index,string name,double duration,double price);
     string albumStatus();
@@ -20,6 +21,7 @@ public:
     double getAlbumPrice();
     string findTrackInfo(int track_id);
     double findTrackPrice(int track_id);
+    int number();
 
 private:
     string status();
