@@ -6,6 +6,8 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QTextEdit>
+#include <QMessageBox>
+#include <QInputDialog>
 #include "album_db.h"
 #include "person_db.h"
 

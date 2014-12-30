@@ -237,58 +237,56 @@ void Widget::on_button_clicked()
                 }
                 else
                 {
-                    output_text->append("You should login to continue!\n");
-                    output_text->append("Do you want to register (y/n) ? \n");
                     string ans;
-                    getline(cin,ans);
-                    if(ans == "y")
+                    if(QMessageBox::question(this,"You should login!","Do you wan to register?","Yes","No") == 0)
                     {
-//                        purchase_list past = persons.getBasket(login_person_id);
-//                        cout << "enter in this format :\n";
-//                        cout << "register name family email password\n";
-//                        ans.clear();
-//                        getline(cin,ans);
+                        purchase_list past = persons.getBasket(login_person_id);
+                        ans.clear();
 
-//                        std::istringstream buf2(ans);
-//                        std::istream_iterator<string> beg2(buf2), end2;
-//                        vector<string> tokens2(beg2, end2);
-//                        string password;
-//                        password.append(tokens2.at(4));
-//                        for(int i=5;i<tokens2.size();i++)
-//                        {
-//                            password.append(" ");
-//                            password.append(tokens2.at(i));
-//                        }
-//                        string email = tokens2.at(3);
-//                        if( isValidEmailAddress(email.c_str()))
-//                        {
-//                            bool registerCheck = persons.reg_fun(tokens2.at(1),tokens2.at(2),tokens2.at(3),password
-//                                                                 ,login_person_name,login_person_id);
-//                            if(registerCheck)
-//                            {
-//                                cout << "User added successfully\n";
-//                                role = "customer";
-//                            }
-//                            else
-//                                cout << "User can't added to System\n";
-//                        }
-//                        else
-//                        {
-//                            cout << "Email foramt isn't corrected\n";
-//                        }
+                        ans = QInputDialog::getText(this, tr("Registeration Data"),
+                                                    tr("Enter your Registeration Data:\nFormat :register name fmaily_name email password"),
+                                                    QLineEdit::Normal).toStdString();
 
-//                        std::ostringstream output;
-//                        persons.setBasket(login_person_id,past);
-//                        purchase_list basket = persons.getBasket(login_person_id);
-//                        purchase_list history = persons.getHistory(login_person_id);
-//                        output << "User : "<<login_person_name << "\n";
-//                        if( login_person_id != -1)
-//                        {
-//                            output << albums.buyAndExportFactor(basket,history) << "\n";
-//                            persons.setBasket(login_person_id,basket);
-//                            persons.setHistory(login_person_id,history);
-//                            cout << output.str();
-//                        }
+                        std::istringstream buf2(ans);
+                        std::istream_iterator<string> beg2(buf2), end2;
+                        vector<string> tokens2(beg2, end2);
+                        string password;
+                        password.append(tokens2.at(4));
+                        for(int i=5;i<tokens2.size();i++)
+                        {
+                            password.append(" ");
+                            password.append(tokens2.at(i));
+                        }
+                        string email = tokens2.at(3);
+                        if( isValidEmailAddress(email.c_str()))
+                        {
+                            bool registerCheck = persons.reg_fun(tokens2.at(1),tokens2.at(2),tokens2.at(3),password
+                                                                 ,login_person_name,login_person_id);
+                            if(registerCheck)
+                            {
+                                output_text->append("User added successfully\n");
+                                role = "customer";
+                            }
+                            else
+                                output_text->append("User can't added to System\n");
+                        }
+                        else
+                        {
+                            output_text->append("Email foramt isn't corrected\n");
+                        }
+
+                        std::ostringstream output;
+                        persons.setBasket(login_person_id,past);
+                        purchase_list basket = persons.getBasket(login_person_id);
+                        purchase_list history = persons.getHistory(login_person_id);
+                        output << "User : "<<login_person_name << "\n";
+                        if( login_person_id != -1)
+                        {
+                            output << albums.buyAndExportFactor(basket,history) << "\n";
+                            persons.setBasket(login_person_id,basket);
+                            persons.setHistory(login_person_id,history);
+                            output_text->append(QString::fromStdString(output.str()));
+                        }
                     }
                     else if(ans == "n")
                     {
