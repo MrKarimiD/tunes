@@ -10,7 +10,7 @@ Album::Album(int id, string albumName, string singerName, double price)
     this->albumName = albumName;
     this->singerName = singerName;
     this->price = price;
-    this->numberOfAvailable = 1;
+    this->numberOfAvailable = 10;
 }
 
 string Album::albumDetails()
