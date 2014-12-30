@@ -13,6 +13,24 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        widget.cpp
+        widget.cpp \
+    customer.cpp \
+    album.cpp \
+    album_db.cpp \
+    track.cpp \
+    staff.cpp \
+    purchase.cpp \
+    purchase_list.cpp \
+    person.cpp \
+    person_db.cpp
 
-HEADERS  += widget.h
+HEADERS  += widget.h \
+    track.h \
+    customer.h \
+    album.h \
+    album_db.h \
+    staff.h \
+    purchase.h \
+    purchase_list.h \
+    person.h \
+    person_db.h
