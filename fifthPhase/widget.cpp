@@ -402,6 +402,7 @@ void Widget::on_button_clicked()
     {
         role = "unknown";
         purchase_status = "nothing";
+        output_text->clear();
     }
     else if(tokens.at(0) == "report_purchases")
     {
@@ -430,6 +431,7 @@ void Widget::on_button_clicked()
                 }
                 history << "Cost :" << sumOfEach << "\n";
                 sumOfAll += sumOfEach;
+                sumOfEach = 0;
                 history <<"----------------------\n";
             }
             history << "Total Cost : "<<sumOfAll <<"\n";
