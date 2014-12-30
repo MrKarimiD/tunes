@@ -17,16 +17,14 @@ string purchase_list::show_list()
     return out.str();
 }
 
-void purchase_list::addPurchaseItem(purchase newItem)
+bool purchase_list::addPurchaseItem(purchase newItem)
 {
     if( ! isInList(newItem) )
     {
         list.push_back(newItem);
+        return true;
     }
-    else
-    {
-        cout << "Already in your list!";
-    }
+    return false;
 }
 
 void purchase_list::removeItem(int album_id, int track_id)

@@ -12,7 +12,7 @@ class purchase_list
 public:
     purchase_list();
     string show_list();
-    void addPurchaseItem(purchase newItem);
+    bool addPurchaseItem(purchase newItem);
     void removeItem(int album_id,int track_id);
     bool isInList(purchase item);
 
