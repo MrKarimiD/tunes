@@ -288,7 +288,7 @@ void Widget::on_button_clicked()
                             output_text->append(QString::fromStdString(output.str()));
                         }
                     }
-                    else if(ans == "n")
+                    else
                     {
                         output << albums.exportFactor(persons.getBasket(login_person_id)) << "\n";
                         output_text->append(QString::fromStdString(output.str()));
@@ -406,7 +406,7 @@ void Widget::on_button_clicked()
     }
     else if(tokens.at(0) == "report_purchases")
     {
-        if( login_person_name == "Admin")
+        if( login_person_name == "admin")
         {
             std::ostringstream history;
             int sumOfAll = 0;

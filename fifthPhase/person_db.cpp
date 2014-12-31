@@ -31,7 +31,7 @@ bool person_db::loadStaffsFromText(string inputName)
             staffs.push_back(temp);
         }
 
-        Staff admin("Admin","Admin","Admin","Admin");
+        Staff admin("admin","admin","admin","admin");
         staffs.push_back(admin);
 
         textFile.close();
@@ -58,7 +58,7 @@ bool person_db::loadCustomersFromText(string inputName)
             std::istream_iterator<string> beg(buf), end;
             vector<string> tokens(beg, end);
 
-            if(tokens.at(0) == "+")
+            if(tokens.at(0) == "+") // For pending items in basket
             {
                 Customer *last = &customers.at(customers.size()-1);
                 string album_id = tokens.at(1) , track_id = tokens.at(2);
@@ -66,20 +66,20 @@ bool person_db::loadCustomersFromText(string inputName)
                 purc.set_status(tokens.at(3));
                 last->purchase_basket.addPurchaseItem(purc);
             }
-            else if(tokens.at(0) == "-")
+            else if(tokens.at(0) == "-") // for history
             {
                 Customer *last = &customers.at(customers.size()-1);
                 string album_id = tokens.at(1) , track_id = tokens.at(2);
                 purchase purc(atoi(album_id.c_str()),atoi(track_id.c_str()));
                 last->purchase_history.addPurchaseItem(purc);
             }
-            else if(tokens.at(0) == "*")
+            else if(tokens.at(0) == "*") //for notifications
             {
                 Customer *last = &customers.at(customers.size()-1);
                 string notif = tokens.at(1);
                 last->addNotif(notif);
             }
-            else if(tokens.at(0) == "$")
+            else if(tokens.at(0) == "$") //for new notifications
             {
                 Customer *last = &customers.at(customers.size()-1);
                 string notif = tokens.at(1);
@@ -87,7 +87,13 @@ bool person_db::loadCustomersFromText(string inputName)
             }
             else
             {
-                Customer newOne(tokens.at(0),tokens.at(1),tokens.at(3),tokens.at(2));
+                string password = tokens.at(3);
+                for(int i=4;i<tokens.size();i++)
+                {
+                    password.append(tokens.at(i));
+                }
+                Customer newOne(tokens.at(0),tokens.at(1),password,tokens.at(2));
+
                 customers.push_back(newOne);
             }
 
@@ -172,10 +178,9 @@ bool person_db::reg_fun(string name, string family_name, string email, string pa
     log_name = "anonymous";
     id = -1;
 
-    Customer temp(name,family_name,email,password);
-
     for(int i=0;i<customers.size();i++)
     {
+        Customer temp = customers.at(i);
         if(temp.get_uname() == email)
             return false;
     }
